@@ -1,0 +1,65 @@
+@charset "utf-8";
+/****************** clear style ********************/
+html, body, div, h1, h2, h3, h4, h5, h6, p, a, span, em, i, img, ul, li, ol, dl, dt, dd, th, tr, td, form, table, thead, tbody, textarea, select, input, button, hr, blockquote, abbr, acronym, fieldset, legend, pre, code, main, section, header, footer, article, nav {
+	margin: 0;
+	padding: 0;
+}
+/* html5不支持acronym */
+abbr, acronym, fieldset { border: none }
+
+/* 清除列表样式 */
+ol, ul, li { list-style: none }
+
+/* 清除表格样式 */
+table { border-collapse: collapse; border-spacing: 0; }
+
+/* 清除表单样式 */
+input, button, select, textarea, option, a { outline: none; border: none; }
+input[type="button"], input[type="submit"], input[type="reset"] {-webkit-appearance: none;}
+
+::-ms-clear{display:none;}
+
+/* 清除下划线 */
+a, a:hover, a:active, a:visited, a:link, a:focus,div {text-decoration: none;-webkit-tap-highlight-color: rgba(255, 255, 255, 0);outline:none;}
+
+/* 清边距 */
+p { -webkit-margin-before: 0; -webkit-margin-after: 0 }
+
+dd { -webkit-margin-start: 0 }
+
+/****************** global style ********************/
+body { font: 12px/1.5 Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "黑体", Arial, \5b8b\4f53; color: #333; background: #fff; -webkit-text-size-adjust: 100% !important;text-size-adjust: 100% !important;-moz-text-size-adjust: 100% !important; }
+
+/* 字体继承, 抗锯齿 */
+div, h1, h2, h3, h4, h5, h6, p, a, span, em, i, img, ul, li, ol, dl, dt, dd, th, tr, td, form, table, thead, tbody, textarea, select, input, button, hr, blockquote, abbr, acronym, fieldset, legend, pre, code, main, section, header, footer, article, nav {
+	font-family: Helvetica, "Microsoft Yahei", "Hiragino Sans GB", "黑体", Arial, \5b8b\4f53;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* 图片去边框 语义化标签转块 */
+main, section, header, footer, article, nav { display: block }
+
+h1, h2, h3, h4, h5, h6 { font-weight: 500;-webkit-margin-before: 0;-webkit-margin-after: 0 }
+
+/* 表单 */
+input, select, textarea, h1, h2, h3, h4, h5, h6 { font-size: 100% }
+::-webkit-input-placeholder { color: #999 }
+:-moz-placeholder { color: #999 }
+::-moz-placeholder { color: #999 }
+:-ms-input-placeholder { color: #999 }
+[disabled]::-webkit-input-placeholder { color: #ccc }
+[disabled]:-moz-placeholder { color: #ccc }
+[disabled]::-moz-placeholder { color: #ccc }
+[disabled]:-ms-input-placeholder { color: #ccc }
+
+th { text-align: inherit }
+
+a { color: #49f }
+
+a, .transition {-moz-transition: -moz-all .3s; -o-transition: -o-all .3s; -webkit-transition: -webkit-all .3s; transition: all .3s;}
+
+em, i { font-style: normal }
+.App{
+	height:100vh;
+}
