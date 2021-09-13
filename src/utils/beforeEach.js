@@ -15,7 +15,7 @@ class FrontendAuth extends Component {
             (item) => {
                 return item.path.replace(/\s*/g, "") === pathname
             }
-        );console.log(userRouterConfig);
+        );
         if (userRouterConfig && isLogin) {
             return <Route exact path={routerConfig[0].pathname} component={routerConfig[0].component} />
         }
