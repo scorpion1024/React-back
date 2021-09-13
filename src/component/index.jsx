@@ -1,7 +1,6 @@
 import "../static/css/global.css";
 import "antd/dist/antd.css";
 import MyMenu from "./menu";
-import http from "../utils/http";
 import routes from "../route/index";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Layout } from "antd";
@@ -14,16 +13,6 @@ class index extends Component {
   constructor(props) {
     super(props);
     this.state = {};
-  }
-  componentDidMount() {
-    http
-      .post("/api/get_menu", { id: 1 })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }
   render() {
     const path = this.props.location.pathname.replace(/\s*/g, "");
