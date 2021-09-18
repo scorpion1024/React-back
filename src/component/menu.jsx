@@ -6,29 +6,23 @@ import {
 } from "@ant-design/icons";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import routes from "../route/index";
 const { SubMenu } = Menu;
 
 class MyMenu extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      menuWidth: props.menuWidth,
-      defaultPath: props.defaultPath,
-    };
-  }
   handleClick = (e) => {
     console.log("click ", e);
   };
 
   render() {
+    const { routes, defaultPath } = this.props;
     return (
       <Menu
         onClick={this.handleClick}
-        style={{ width: this.state.menuWidth, height: "100%" }}
-        defaultSelectedKeys={[this.state.defaultPath]}
+        style={{ height: "100%" }}
+        defaultSelectedKeys={[defaultPath]}
         defaultOpenKeys={["sub1"]}
         mode="inline"
+        theme="dark"
       >
         <SubMenu key="sub1" icon={<MailOutlined />} title="Navigation One">
           {routes.map((item) => {

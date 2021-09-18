@@ -50,8 +50,8 @@ class login extends Component {
           showElem: "none",
         });
         if (res.code === 0) {
-          sessionStorage.setItem("token", res.msg.account);
-		  this.props.history.push('/');
+          sessionStorage.setItem("token", res.msg);
+          this.props.history.push("/");
         } else {
           message.error(res.msg);
         }

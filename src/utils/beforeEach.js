@@ -1,6 +1,7 @@
-import  { Component } from "react";
+import { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
-import routes from "../route/index";
+import routeAll from "../route/index";
+import { decode, filterRoutes } from "../utils/utils";
 class FrontendAuth extends Component {
     render() {
         const { routerConfig, location } = this.props;
@@ -11,13 +12,17 @@ class FrontendAuth extends Component {
                 return item.path.replace(/\s*/g, "") === pathname
             }
         );
-        const userRouterConfig = routes.find(
-            (item) => {
-                return item.path.replace(/\s*/g, "") === pathname
+        if (isLogin) {
+            let userInfo = JSON.parse(atob(decode(isLogin)));
+            let routes = filterRoutes(userInfo, routeAll);
+            const userRouterConfig = routes.find(
+                (item) => {
+                    return item.path.replace(/\s*/g, "") === pathname
+                }
+            );
+            if (userRouterConfig && isLogin) {
+                return <Route exact path={routerConfig[0].pathname} component={routerConfig[0].component} />
             }
-        );
-        if (userRouterConfig && isLogin) {
-            return <Route exact path={routerConfig[0].pathname} component={routerConfig[0].component} />
         }
         if (targetRouterConfig && !targetRouterConfig.auth && !isLogin) {
             const { component } = targetRouterConfig;
@@ -40,9 +45,7 @@ class FrontendAuth extends Component {
             // 非登陆状态下，当路由合法时且需要权限校验时，跳转到登陆页面，要求登陆
             if (targetRouterConfig && targetRouterConfig.auth) {
                 return <Redirect to="/login" />;
-            } else if (userRouterConfig && userRouterConfig.auth) {
-                return <Redirect to="/login" />;
-            }else{
+            } else {
                 // 非登陆状态下，路由不合法时，重定向至 404
                 return <Redirect to="/404" />;
             }

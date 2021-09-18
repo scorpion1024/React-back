@@ -1,10 +1,10 @@
 import { Component } from 'react';
-class home extends Component {
+class users extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '首页',
-            path: '/home'
+            name: '用户管理',
+            path: '/users'
         };
     }
 
@@ -17,4 +17,4 @@ class home extends Component {
     }
 }
 
-export default home;
+export default users;
