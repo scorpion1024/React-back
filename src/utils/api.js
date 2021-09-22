@@ -1,14 +1,10 @@
-import http from './http'
+import { post } from './http'
 
-export function getUserToken(id) {
-    http
-        .post("/api/get_userinfo", {
-            id: id
-        })
+export function getUserToken(user) {
+    post("/api/get_userinfo", user)
         .then((res) => {
             if (res.code === 0) {
                 sessionStorage.setItem("token", res.msg);
-                window.location.reload();
             } else {
                 sessionStorage.removeItem("token");
             }

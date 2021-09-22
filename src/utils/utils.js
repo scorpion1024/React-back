@@ -10,14 +10,34 @@ export function decode(token) {
 }
 
 export function filterRoutes(userInfo, routeAll) {
-    let routes = routeAll;
+    let routes = [
+        {
+            nav: routeAll[0].nav,
+            navName: routeAll[0].navName,
+            com: [routeAll[0].com[0]]
+        }
+    ];
     if (userInfo.is_admin !== '1') {
         if (userInfo.paths) {
-            const pathArr = userInfo.paths.split(',');
-            routes = routeAll.filter(item => pathArr.includes(item.path.slice(1)) ? item : false);
-        } else {
-            routes = [routeAll[0]]
+            let pathArr = userInfo.paths.split(',');
+            routeAll.forEach((element, key) => {
+                element.com.forEach(item => {
+                    if (pathArr.includes(item.path.slice(1))) {
+                        if (!routes[key]) {
+                            routes[key] = {
+                                nav: routeAll[key].nav,
+                                navName: routeAll[key].navName,
+                                com: [item]
+                            };
+                        } else if (key !== 0) {
+                            routes[key].com.push(item);
+                        }
+                    }
+                })
+            });
         }
+    } else {
+        routes = routeAll;
     }
     return routes;
 }

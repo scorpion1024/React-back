@@ -1,7 +1,8 @@
 import { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
-import routeAll from "../route/index";
+import { routeAll } from "../route/index";
 import { decode, filterRoutes } from "../utils/utils";
+import { getUserToken } from "../utils/api";
 class FrontendAuth extends Component {
     render() {
         const { routerConfig, location } = this.props;
@@ -14,15 +15,27 @@ class FrontendAuth extends Component {
         );
         if (isLogin) {
             let userInfo = JSON.parse(atob(decode(isLogin)));
-            let routes = filterRoutes(userInfo, routeAll);
-            const userRouterConfig = routes.find(
-                (item) => {
-                    return item.path.replace(/\s*/g, "") === pathname
+            getUserToken(userInfo);
+            if (sessionStorage.getItem("token")) {
+                let routes = filterRoutes(userInfo, routeAll);
+                let userRouterConfig;
+                routes.forEach(
+                    (route) => {
+                        route.com.forEach(item => {
+                            if (item.path.replace(/\s*/g, "") === pathname) {
+                                userRouterConfig = item.path.replace(/\s*/g, "") === pathname;
+                                return;
+                            }
+                        })
+                    }
+                );
+                if (userRouterConfig && isLogin) {
+                    return <Route exact path={routerConfig[0].pathname} component={routerConfig[0].component} />
                 }
-            );
-            if (userRouterConfig && isLogin) {
-                return <Route exact path={routerConfig[0].pathname} component={routerConfig[0].component} />
+            } else {
+                return <Redirect to="/login" />;
             }
+
         }
         if (targetRouterConfig && !targetRouterConfig.auth && !isLogin) {
             const { component } = targetRouterConfig;

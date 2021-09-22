@@ -1,6 +1,6 @@
 import { Component } from "react";
 import "../static/css/login.css";
-import http from "../utils/http";
+import { http } from "../utils/http";
 import Loading from "./loading";
 import { message } from "antd";
 import md5 from "js-md5";

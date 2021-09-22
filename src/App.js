@@ -9,7 +9,7 @@ var routes = [
   { path: "/404", name: "404", component: Error404 },
   { path: "/login", name: "login", component: Login }
 ]
-function App() {
+const App = () => {
   return (
     <Router>
       <Switch>

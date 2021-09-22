@@ -1,5 +1,5 @@
-const baseURL = ''
-function http(url, data = {}, type = 'get') {
+const baseURL = '';
+async function http(url, data = {}, type = 'get') {
   let obj = {
     method: type,
     headers: {
@@ -18,12 +18,13 @@ function http(url, data = {}, type = 'get') {
     str = str.replace(/&$/, '')
     url += '?' + str
   }
-  return fetch(url, obj).then(res => res.json())
+  const res = await fetch(url, obj);
+  return await res.json();
 }
-http.get = function (url, data) {
+let get = http.get = function (url, data) {
   return http(url, data, 'get')
 }
-http.post = function (url, data) {
+let post = http.post = function (url, data) {
   return http(url, data, 'post')
 }
-export default http
+export { http, post, get }

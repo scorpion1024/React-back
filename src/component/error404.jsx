@@ -1,6 +1,16 @@
-import img404 from "../static/img/404.svg";
+import img404 from "../static/img/404.png";
+import "../static/css/404.css";
 function Error404() {
-  return <img src={img404} alt="" style={{ width: "100%", height: "100%" }} />;
+  return (
+    <div className="tcy_404 container">
+      <img src={img404} alt="" />
+      <h2>抱歉，您访问的页面出错了</h2>
+      <p>您可能输错了网址，或该网页已删除或不存在</p>
+      <a href="/" className="btn_404 btn-primary btn_blue">
+        返回主页
+      </a>
+    </div>
+  );
 }
 
 export default Error404;
