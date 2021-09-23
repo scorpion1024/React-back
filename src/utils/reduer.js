@@ -1,9 +1,9 @@
-const store = { token: '' };
+const store = { routes: [] };
 
 const reducer = (state = store, action) => {
     switch (action.type) {
-        case 'putToken':
-            return { token: action.token };
+        case 'putRoutes':
+            return { token: action.routes };
         default:
             return state;
     }

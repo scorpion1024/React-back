@@ -14,6 +14,7 @@ export function filterRoutes(userInfo, routeAll) {
         {
             nav: routeAll[0].nav,
             navName: routeAll[0].navName,
+            icon: routeAll[0].icon,
             com: [routeAll[0].com[0]]
         }
     ];
@@ -27,6 +28,7 @@ export function filterRoutes(userInfo, routeAll) {
                             routes[key] = {
                                 nav: routeAll[key].nav,
                                 navName: routeAll[key].navName,
+                                icon: routeAll[key].icon,
                                 com: [item]
                             };
                         } else if (key !== 0) {
@@ -36,7 +38,8 @@ export function filterRoutes(userInfo, routeAll) {
                 })
             });
         }
-    } else {
+    }
+    if (userInfo.is_admin === '1') {
         routes = routeAll;
     }
     return routes;

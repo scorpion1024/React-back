@@ -1,8 +1,6 @@
 import { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { routeAll } from "../route/index";
-import { decode, filterRoutes } from "../utils/utils";
-import { getUserToken } from "../utils/api";
+import { routeAll as routes } from "../route/index";
 class FrontendAuth extends Component {
     render() {
         const { routerConfig, location } = this.props;
@@ -14,28 +12,20 @@ class FrontendAuth extends Component {
             }
         );
         if (isLogin) {
-            let userInfo = JSON.parse(atob(decode(isLogin)));
-            getUserToken(userInfo);
-            if (sessionStorage.getItem("token")) {
-                let routes = filterRoutes(userInfo, routeAll);
-                let userRouterConfig;
-                routes.forEach(
-                    (route) => {
-                        route.com.forEach(item => {
-                            if (item.path.replace(/\s*/g, "") === pathname) {
-                                userRouterConfig = item.path.replace(/\s*/g, "") === pathname;
-                                return;
-                            }
-                        })
-                    }
-                );
-                if (userRouterConfig && isLogin) {
-                    return <Route exact path={routerConfig[0].pathname} component={routerConfig[0].component} />
+            let userRouterConfig = false;
+            routes.forEach(
+                (route) => {
+                    route.com.forEach(item => {
+                        if (item.path.replace(/\s*/g, "") === pathname) {
+                            userRouterConfig = item.path.replace(/\s*/g, "") === pathname;
+                            return;
+                        }
+                    })
                 }
-            } else {
-                return <Redirect to="/login" />;
+            );
+            if (userRouterConfig && isLogin) {
+                return <Route exact path={routerConfig[0].pathname} component={routerConfig[0].component} />
             }
-
         }
         if (targetRouterConfig && !targetRouterConfig.auth && !isLogin) {
             const { component } = targetRouterConfig;

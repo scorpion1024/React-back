@@ -1,11 +1,11 @@
 import "../static/css/global.css";
 import "antd/dist/antd.css";
 import MyMenu from "./menu";
-import { routeAll } from "../route/index";
+import { routeAll as routes } from "../route/index";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Layout, Button, Space } from "antd";
 import { Component } from "react";
-import { decode, filterRoutes } from "../utils/utils";
+import { decode } from "../utils/utils";
 const { Header, Sider, Content } = Layout;
 const menuWidth = 230;
 
@@ -26,7 +26,6 @@ class index extends Component {
   };
   render() {
     const { collapsed, userInfo } = this.state;
-    const routes = filterRoutes(userInfo, routeAll);
     let path = this.props.location.pathname.replace(/\s*/g, "");
     if (path === "/") {
       path = "/home/home";
@@ -69,6 +68,7 @@ class index extends Component {
                 defaultPath={path}
                 defaultKey={key}
                 routes={routes}
+                userInfo={userInfo}
               />
             </Sider>
             <Content>
