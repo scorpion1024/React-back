@@ -1,4 +1,3 @@
-import "../static/css/global.css";
 import "antd/dist/antd.css";
 import MyMenu from "./menu";
 import { routeAll as routes } from "../route/index";
@@ -22,7 +21,7 @@ class index extends Component {
   };
   logOut = () => {
     sessionStorage.removeItem("token");
-    this.props.history.push("/login");
+    window.location.reload();
   };
   render() {
     const { collapsed, userInfo } = this.state;

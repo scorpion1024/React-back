@@ -1,6 +1,6 @@
 import img404 from "../static/img/404.png";
 import "../static/css/404.css";
-function Error404() {
+const Error404 = () => {
   return (
     <div className="tcy_404 container">
       <img src={img404} alt="" />
@@ -11,6 +11,6 @@ function Error404() {
       </a>
     </div>
   );
-}
+};
 
 export default Error404;

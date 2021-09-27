@@ -1,6 +1,6 @@
 import { Component } from "react";
 import "../static/css/login.css";
-import { http } from "../utils/http";
+import { post } from "../utils/http";
 import Loading from "./loading";
 import { message } from "antd";
 import md5 from "js-md5";
@@ -40,18 +40,18 @@ class login extends Component {
     this.setState({
       showElem: "block",
     });
-    http
-      .post("/api/do_login", {
-        userName: this.state.userName,
-        passWord: this.state.md5Word,
-      })
+
+    post("/api/do_login", {
+      userName: this.state.userName,
+      passWord: this.state.md5Word,
+    })
       .then((res) => {
         this.setState({
           showElem: "none",
         });
         if (res.code === 0) {
           sessionStorage.setItem("token", res.msg);
-          this.props.history.push("/");
+          window.location.reload();
         } else {
           message.error(res.msg);
         }

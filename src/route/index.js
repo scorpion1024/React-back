@@ -24,5 +24,7 @@ let routeAll = Object.values(routeItem);
 if (isLogin) {
     let userInfo = JSON.parse(atob(decode(isLogin)));
     routeAll = filterRoutes(userInfo, routeAll);
+} else {
+    routeAll = [];
 }
 export { routeAll }

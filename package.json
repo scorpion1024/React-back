@@ -7,6 +7,8 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "antd": "^4.16.13",
+    "babel-plugin-import": "^1.13.3",
+    "clean-webpack-plugin": "^4.0.0",
     "element-react": "^1.4.34",
     "element-theme-default": "^1.4.13",
     "http-proxy-middleware": "^2.0.1",

@@ -1,15 +1,16 @@
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createStore } from 'redux'
-import { Provider } from 'react-redux'
-import reducer from './utils/reduer'
-
-const store = createStore(reducer);
+import Login from "./component/login";
+function IsLogin() {
+    if (sessionStorage.getItem("token")) {
+        return <App />;
+    } else {
+        return <Login />;
+    }
+}
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
+    <IsLogin />,
     document.getElementById('root')
 );
 
