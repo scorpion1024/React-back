@@ -22,7 +22,9 @@ files.keys().forEach(key => {
 });
 let routeAll = Object.values(routeItem);
 if (isLogin) {
-    let userInfo = JSON.parse(atob(decode(isLogin)));
+    const userInfo = JSON.parse(
+        Buffer.from(decode(sessionStorage.getItem("token")), "base64")
+    );
     routeAll = filterRoutes(userInfo, routeAll);
 } else {
     routeAll = [];

@@ -2,10 +2,14 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Login from "./component/login";
+import { decode } from "@/utils/utils";
 function IsLogin() {
-    if (sessionStorage.getItem("token")) {
+    try {
+        JSON.parse(
+            Buffer.from(decode(sessionStorage.getItem("token")), "base64")
+        );
         return <App />;
-    } else {
+    } catch (error) {
         return <Login />;
     }
 }
