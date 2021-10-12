@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import { Table, Switch, Pagination, Space, Button, Modal } from 'antd';
-import { getUserList, changeAdmin } from "@/utils/api";
+import { getUserList, changeAdmin, doDelete } from "@/utils/api";
 import AddUser from './addUser'
+import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 
 class users extends Component {
     constructor(props) {
@@ -13,7 +14,8 @@ class users extends Component {
             page: 1,
             size: 10,
             total: 0,
-            isModalVisible: false
+            editUser: {},
+            modalTitle: '新增用户'
         };
     }
     componentDidMount() {
@@ -29,19 +31,54 @@ class users extends Component {
         })
     }
     pageChange = (page, pageSize) => {
-        console.log(page)
-        console.log(pageSize)
+        this.setState({ page: page, size: pageSize }, () => {
+            this.searchUser();
+        });
+    }
+    delete = (record) => {
+        const { alertMsg, searchUser } = this;
+        Modal.confirm({
+            title: `删除确认`,
+            icon: <ExclamationCircleOutlined />,
+            content: `确认删除用户：${record.account}，姓名：${record.name}`,
+            okText: '确认',
+            okType: 'danger',
+            cancelText: '取消',
+            onOk() {
+                return doDelete(record)
+                    .then((res) => {
+                        if (res) {
+                            alertMsg("删除成功！", "success");
+                        } else {
+                            alertMsg("删除失败，请重试", "error");
+                        }
+                        searchUser();
+                    })
+                    .catch(() => {
+                        alertMsg("删除失败，请重试", "error");
+                        searchUser();
+                    });
+            }
+        });
+
     }
     edit = (record) => {
-        console.log(record)
+        this.setState({ confirmLoading: false, editUser: record, modalTitle: '编辑用户', isModalVisible: true });
     }
     add = () => {
-        this.setState({ confirmLoading: false, isModalVisible: true });
+        this.setState({ confirmLoading: false, editUser: {}, modalTitle: '新增用户', isModalVisible: true });
     }
-    alertError = (msg) => {
-        Modal.error({
-            title: msg
-        });
+    alertMsg = (msg, type) => {
+        switch (type) {
+            case 'error':
+                Modal.error({ title: msg });
+                break;
+            case 'success':
+                Modal.success({ title: msg });
+                break;
+            default:
+                break;
+        }
     }
     handleCancel = () => {
         this.setState({ confirmLoading: false, isModalVisible: false });
@@ -90,15 +127,20 @@ class users extends Component {
                 width: 180,
                 render: (_, record) => {
                     return (
-                        <Button onClick={this.edit.bind(this, record)} type="primary">
-                            编辑
-                        </Button>
+                        <Space>
+                            <Button onClick={this.edit.bind(this, record)} type="primary" icon={<EditOutlined />} size={'small'}>
+                                编辑
+                            </Button>
+                            <Button onClick={this.delete.bind(this, record)} icon={<DeleteOutlined />} size={'small'}>
+                                删除
+                            </Button>
+                        </Space>
                     );
                 }
             }
         ];
-        const { dataSource, loading, page, size, total, isModalVisible } = this.state;
-        const { searchUser, pageChange, handleCancel } = this;
+        const { dataSource, loading, size, page, total, isModalVisible, editUser, modalTitle } = this.state;
+        const { searchUser, pageChange, handleCancel, alertMsg } = this;
         const pageStyle = {
             float: 'right',
             marginTop: '10px',
@@ -111,15 +153,15 @@ class users extends Component {
         }
         return (
             <div style={{ padding: '20px 24px 50px' }}>
-                <Modal title="新增用户" visible={isModalVisible} onCancel={handleCancel} footer={null} maskClosable={false}>
-                    <AddUser close={handleCancel} />
+                <Modal title={modalTitle} visible={isModalVisible} onCancel={handleCancel} footer={null} maskClosable={false}>
+                    <AddUser close={handleCancel} searchUser={searchUser} alertMsg={alertMsg} thisUser={editUser} />
                 </Modal>
                 <Space style={{ marginBottom: '10px' }}>
                     <Button onClick={this.add} type="primary" size="small">新增用户</Button>
                 </Space>
                 <Table dataSource={dataSource} columns={columns} size="small" rowKey={"id"} pagination={false}
                     loading={loading} onChange={searchUser} />
-                <Pagination defaultCurrent={page} total={total} defaultPageSize={size} style={pageStyle} onChange={pageChange} />
+                <Pagination current={page} total={total} defaultPageSize={size} style={pageStyle} onChange={pageChange} />
             </div>
         );
     }

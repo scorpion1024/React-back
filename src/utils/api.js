@@ -11,3 +11,9 @@ export const getUserList = (param) => {
 export const changeAdmin = (param) => {
     return post("/api/change_admin", param);
 }
+export const doChange = (param) => {
+    return post("/api/do_change", param);
+}
+export const doDelete = (param) => {
+    return post("/api/do_delete", param);
+}

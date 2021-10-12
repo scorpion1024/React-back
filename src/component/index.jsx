@@ -23,7 +23,7 @@ class index extends Component {
   };
   logOut = () => {
     sessionStorage.removeItem("token");
-    window.location.reload();
+    window.location.href = "/";
   };
   render() {
     const { collapsed, userInfo } = this.state;
