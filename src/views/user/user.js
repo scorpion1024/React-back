@@ -60,7 +60,6 @@ class users extends Component {
                     });
             }
         });
-
     }
     edit = (record) => {
         this.setState({ confirmLoading: false, editUser: record, modalTitle: '编辑用户', isModalVisible: true });
@@ -153,7 +152,7 @@ class users extends Component {
         }
         return (
             <div style={{ padding: '20px 24px 50px' }}>
-                <Modal title={modalTitle} visible={isModalVisible} onCancel={handleCancel} footer={null} maskClosable={false}>
+                <Modal title={modalTitle} visible={isModalVisible} onCancel={handleCancel} footer={null} maskClosable={false} destroyOnClose={true} centered={true}>
                     <AddUser close={handleCancel} searchUser={searchUser} alertMsg={alertMsg} thisUser={editUser} />
                 </Modal>
                 <Space style={{ marginBottom: '10px' }}>

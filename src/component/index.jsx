@@ -33,7 +33,7 @@ class index extends Component {
     }
     const key = path.split("/")[1];
     const headerStyle = { color: "#fff", fontSize: "24px" };
-    const layoutStyle = { height: "100vh" };
+    const layoutStyle = { minHeight: "100vh" };
     return (
       <Router>
         <Layout style={layoutStyle}>

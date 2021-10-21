@@ -9,7 +9,7 @@ class order extends Component {
 
     render() {
         return (
-            <div>订单页面</div>
+            <div><strong>订单页面</strong></div>
         );
     }
 }

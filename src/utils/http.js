@@ -4,8 +4,7 @@ async function http(url, data = {}, type = 'get') {
     method: type,
     headers: {
       'Content-Type': 'application/json'
-    },
-    body: ''
+    }
   }
   url = baseURL + url;
   if (/post/i.test(obj.method)) {
