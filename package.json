@@ -25,13 +25,18 @@
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
     "redux-devtools": "^3.7.0",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "babel-polyfill": "^6.26.0",
+    "customize-cra": "^1.0.0",
+    "node-sass": "^7.0.1",
+    "react-app-rewired": "^2.2.1",
+    "sass-loader": "^12.6.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "set PORT=3303 && react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject"
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +57,6 @@
     ]
   },
   "devDependencies": {
-    "babel-polyfill": "^6.26.0"
+    "sass": "^1.50.0"
   }
 }

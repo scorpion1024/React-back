@@ -62,11 +62,11 @@ export const plugins = [
             NODE_ENV: JSON.stringify("production")
         }
     }),
-    //这个使用uglifyJs压缩你的js代码
+    //压缩
     new optimize.UglifyJsPlugin({
         minimize: true,
         output: {
-            comments: false, // remove all comments
+            comments: false,
         },
         compress: {
             warnings: false
@@ -79,7 +79,7 @@ export const plugins = [
         minify: {
             caseSensitive: false,
             collapseBooleanAttributes: true,
-            collapseWhitespace: true //是否去除空格
+            collapseWhitespace: true //去除空格
         },
         inject: 'body'
     }),
